@@ -1,0 +1,11 @@
+{
+	"name": "Daily Delicious",
+	 "options_page": "options.html",
+	"version": "1.0",
+	"description": "An extension to load bookmarks tagged with daily or what ever you want.",
+	"browser_action": {
+		"default_icon": "icon.png",
+		"popup": "index.html"
+	},
+	"permissions": ["delicious.com/*"]
+}
