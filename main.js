@@ -4,8 +4,8 @@
 
 $(document).ready(function() {
 
-    var username = localStorage["delicousDailyUsername"];
-    var tag = localStorage["delicousDailyTag"];
+    var username = 'shaunoconnor';//localStorage["delicousDailyUsername"];
+    var tag = 'daily'//localStorage["delicousDailyTag"];
 
     if (!username || !tag || username == '' || tag == '') {
         $("#output").html('<strong/><i><p>You need to set your delicious username and tag first!</p></i></strong>');
@@ -15,7 +15,8 @@ $(document).ready(function() {
 
         $("#output").html('<strong/><i><p>Loading...</p></i></strong>');
 
-        var jqxhr = $.getJSON("http://feeds.delicious.com/v1/json/" + username + "/" + tag + "?callback=?",
+        var jqxhr = $.getJSON("http://feeds.delicious.com/v2/json/" + username + "/" + tag + "?callback=?",
+
         function() {});
 
         jqxhr.error(function() {
