@@ -1,7 +1,10 @@
 $(document).ready(function() {
 
-    console.log('options')
+    $('#saveButton').click( function(){
 
+        saveOptions();
+     } );
+    
     loadOptions();
 });
 
@@ -22,5 +25,4 @@ function saveOptions() {
     localStorage["delicousDailyTag"] = tagInput;
 
     $("#current").html("Current username : " + usernameInput + "<br />" + "Current tag : " + tagInput);
-
 }

@@ -1,46 +1,53 @@
 /**
  * This does everything, i.e. load Delicious daily feed
  */
+$(document).ready(function () {
 
-$(document).ready(function() {
+    var username = localStorage["delicousDailyUsername"];
+    var tag = localStorage["delicousDailyTag"];
 
-    var username = 'shaunoconnor';//localStorage["delicousDailyUsername"];
-    var tag = 'daily'//localStorage["delicousDailyTag"];
+    //var username = 'shaunoconnor';
+    //var tag = 'daily';
 
-    if (!username || !tag || username == '' || tag == '') {
+    if (!username || !tag || username === '' || tag === '') {
         $("#output").html('<strong/><i><p>You need to set your delicious username and tag first!</p></i></strong>');
-    }
-
-    else {
+    } else {
 
         $("#output").html('<strong/><i><p>Loading...</p></i></strong>');
 
-        var jqxhr = $.getJSON("http://feeds.delicious.com/v2/json/" + username + "/" + tag + "?callback=?",
+        var url = "https://feeds.delicious.com/v2/json/" + username + "/" + tag + "?count=20&callback=?";
 
-        function() {});
+        console.log( 'url', url );
 
-        jqxhr.error(function() {
+        var jqxhr = $.getJSON(url, function () {
+            $("#output").html('<strong/><i><p>Callback...</p></i></strong>');
+        });
+
+        jqxhr.error(function () {
             $("#output").html('<strong/><i><p>Error</p></i></strong>');
         });
 
-        jqxhr.complete(function(data) {
+        jqxhr.complete(function (data) {
             $("#output").html('<strong/><i><p>Complete</p></i></strong>');
         });
 
-        jqxhr.success(function(data) {
+       jqxhr.success(function (data) {
 
-            $.each(data,
-            function(i, item) {
+            $("#output").html('<strong/><i><p>Success!</p></i></strong>');
+
+            $.each(data, function (i, item) {
+
+                console.log( 'item.u : ', item.u );
 
                 chrome.tabs.create({
+                    active:false,
                     url: item.u
                 },
-                function() {});
 
+                function () {});
             });
 
-            window.close();
+            //window.close();
         });
     }
-}
-);
+});
